@@ -11,3 +11,5 @@ push:
 in:
 	conda install -c osgeo gdal
 	pip install cartopy
+md:
+	pandoc -s -S --bibliography 1.bib --filter pandoc-citeproc --csl apa.csl -o hello.html paper.md
