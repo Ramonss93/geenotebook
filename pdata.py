@@ -1,4 +1,7 @@
-import pandas as pd
+get_ipython().magic('matplotlib inline')
+from pylab import *
+import numpy as np, pandas as pd, seaborn as sns
+import itertools
 
 from time import localtime, strftime
 def h5store(filename, df, desc):
