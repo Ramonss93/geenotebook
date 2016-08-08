@@ -2,6 +2,35 @@ get_ipython().magic('matplotlib inline')
 from pylab import *
 import numpy as np, pandas as pd, seaborn as sns
 import itertools
+from IPython.display import Markdown, display
+
+def load_dataset(name):
+    return pd.read_csv('https://rawgit.com/suredream/datasets/master/%s.csv' % name)    
+def display_error_matrix(truth, pred, index=['A', 'C','Total', 'Producer Accuracy'], columns=['A', 'B', 'Total', 'User Accuracy']):
+    """Display error matrix, accuracy and kappa
+df = pd.read_csv('https://rawgit.com/suredream/datasets/master/val_ce.csv') 
+display_error_matrix(df['truth'], df['map'])
+    """
+    from sklearn.metrics import confusion_matrix, cohen_kappa_score
+
+    C = confusion_matrix(truth, pred)
+    kappa = (cohen_kappa_score(df['truth'], df['map']) * 1000).astype(int)
+    correct = [C[i,i] for i in range(C.shape[0])]
+    colsum = np.sum(C, axis=1)
+    C = np.c_[C, colsum, (correct / colsum * 1000).astype(int)] # UA
+    rowsum = np.sum(C, axis=0)
+    pa = (correct / rowsum[:-2] * 1000).astype(int)
+    rowsum[-1] = 0
+    C = np.vstack([C, rowsum])
+    oa = (np.sum(correct)/np.sum(colsum) * 1000).astype(int)
+    C = np.vstack([C, np.append(pa,[kappa, oa])])
+    ddf = pd.DataFrame(data=C, index=index, columns=columns)
+
+    fmt = ['---' for i in range(len(ddf.columns))]
+    df_fmt = pd.DataFrame([fmt], columns=ddf.columns)
+    df_formatted = pd.concat([df_fmt, ddf])
+    print(df_formatted.to_csv(sep="|", index=True))
+    display(Markdown(df_formatted.to_csv(sep="|", index=False)))
 
 from time import localtime, strftime
 def h5store(filename, df, desc):
