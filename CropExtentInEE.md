@@ -2,6 +2,7 @@
 Continental crop extent mapping at 30 m resolution: Google Earth Engine Approach
 [TOC]
 
+![Cropping intensity by Country](http://www.worldbank.org/content/dam/Worldbank/Feature%20Story/Africa/Programs/Agriculture%20in%20Africa%20Telling%20Facts%20from%20Myths/afr-agriculture-in-africa-agricultural-intensification-the-status-in-six-african-countries-graph-520x347.jpg)
 
 # Highlights 
 -	Global Crop/Non-Crop Training/Validation Dataset

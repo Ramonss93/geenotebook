@@ -2,6 +2,8 @@ all:
 	cat makefile
 ee:
 	earthengine authenticate
+pull:
+	git pull origin master --force
 push:
 	git config --global user.email "jun.xiong1981@gmail.com"
 	git config --global user.name "Jun Xiong"
