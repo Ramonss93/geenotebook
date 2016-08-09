@@ -1,5 +1,11 @@
 all:
 	cat makefile
+run:
+dock:
+	docker ps -q
+	docker port  `docker ps -q` 
+stop:
+	docker stop  `docker ps -q`
 ee:
 	earthengine authenticate
 pull:
