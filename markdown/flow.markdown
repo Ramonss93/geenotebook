@@ -1,9 +1,9 @@
-% Title
-% Name
-% Date
+% How to Data Mining
+% Jun Xiong
+% Aug 2016
 
 
-My first slide
+Target
 --------------------
 
 List
@@ -27,3 +27,9 @@ pandoc -t html5 --template=template-revealjs.html \
   --variable transition="linear" \
   slides.md -o slides.html
 ```
+
+
+- generate dataset
+- plotting
+- description
+- presentation

@@ -3,6 +3,7 @@ from pylab import *
 import numpy as np, pandas as pd, seaborn as sns
 import itertools
 from IPython.display import Markdown, display
+import json, ee; ee.Initialize()
 
 def load_dataset(name):
     return pd.read_csv('https://rawgit.com/suredream/datasets/master/%s.csv' % name)    
@@ -67,12 +68,12 @@ def h5import(filename, csvfile, desc):
     
 
 def load_ft(name):
-# - grids = ee.FeatureCollection('ft:1-M2bqBc_0mEo10VmITae6hAAfd5Zs-Y_rd6YPeIJ')  // ce_grid1x1
+# - grids = ee.FeatureCollection('ft:12RIMwSvyuOJByGe1G_ylgvagH5WzFbxHIXGqCZyB')  // ce_grid1x1
 # - continent = ee.FeatureCollection('ft:1fM786Wbri6CqIz3JvyQ_vvMIBGbdUmTOGacZTnb-') // africa continent
 # - aezs8 = ee.FeatureCollection('ft:19hZjN8dbwPbDHNdLVaoGLEtmIbxAtrn4yDr9QVgt') // africa AEZs
 # - countries = ee.FeatureCollection('ft:1fGODObRcgWotUauiKV_2GlM7ZXX0sdZ5FLTJeALZ') // africa Countries
 # - training = ee.FeatureCollection('ft:1C_gFvQmd3AGtB0Q0XgnKk5ESUARSH79FB9Un8sF2') // GFSAD traing dataset
 # - reference = ee.FeatureCollection('ft:1KK298zIL_T5yHXNaKnqQ4nfK03aKJBiiQeP__EqU') // Bo's validatioin data
-    dic = {'grid':'ft:1-M2bqBc_0mEo10VmITae6hAAfd5Zs-Y_rd6YPeIJ', 'afr':'ft:1fM786Wbri6CqIz3JvyQ_vvMIBGbdUmTOGacZTnb-','az':'ft:19hZjN8dbwPbDHNdLVaoGLEtmIbxAtrn4yDr9QVgt',
- 'country':'ft:1fGODObRcgWotUauiKV_2GlM7ZXX0sdZ5FLTJeALZ','tr':'ft:1C_gFvQmd3AGtB0Q0XgnKk5ESUARSH79FB9Un8sF2','val':'ft:1KK298zIL_T5yHXNaKnqQ4nfK03aKJBiiQeP__EqU'}
+    dic = {'grid':'ft:12RIMwSvyuOJByGe1G_ylgvagH5WzFbxHIXGqCZyB', 'afr':'ft:1fM786Wbri6CqIz3JvyQ_vvMIBGbdUmTOGacZTnb-','az':'ft:19hZjN8dbwPbDHNdLVaoGLEtmIbxAtrn4yDr9QVgt',
+ 'country':'ft:1fGODObRcgWotUauiKV_2GlM7ZXX0sdZ5FLTJeALZ','tr':'ft:1C_gFvQmd3AGtB0Q0XgnKk5ESUARSH79FB9Un8sF2','val':'ft:1KK298zIL_T5yHXNaKnqQ4nfK03aKJBiiQeP__EqU', 'modists':'ft:1DJ8J1R_Y7-UzjI7REMv2GWNeOWBSI0bmhEobgJlU'}
     return ee.FeatureCollection(dic[name])
