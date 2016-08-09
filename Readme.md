@@ -21,10 +21,14 @@
 ## Classification
 - [A Complete Tutorial on Tree Based Modeling from Scratch (in R & Python)](https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/)
 
+## Classification
+[SciPy 2015 Scikit-learn Tutorial](https://github.com/amueller/scipy_2015_sklearn_tutorial)
+
 ## Jupyter Notebooks
 
 - [An example machine learning notebook](http://nbviewer.jupyter.org/github/rhiever/Data-Analysis-and-Machine-Learning-Projects/blob/master/example-data-science-notebook/Example%20Machine%20Learning%20Notebook.ipynb)
-
+- [Using pandas and scikit-learn for classification tasks](https://github.com/jseabold/depy/blob/master/pandas_sklearn_rendered.ipynb)
+- [Advanced Scikit-learn training session](https://github.com/amueller/advanced_training)
 
 standards/climate-and-forecast-cf-metadata-conventions
 
