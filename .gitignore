@@ -1,4 +1,5 @@
 output
+markdown/*.html
 .local
 .ipynb_checkpoints
 __pycache__
