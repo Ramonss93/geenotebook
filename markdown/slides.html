@@ -1,110 +1,73 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
-
-<title>Title</title>
-
-<meta name="description" content="Title">    
-
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
   <meta name="author" content="Name" />
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<link rel="stylesheet" href="css/reveal.css">
-  <link rel="stylesheet" href="css/theme/beige.css" id="theme">
-
-
-<!-- For syntax highlighting -->
-  <link rel="stylesheet" href="lib/css/zenburn.css">
-
-
-<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-<script>
-  document.write( '<link rel="stylesheet" href="css/print/' +
-    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + 
-    '.css" type="text/css" media="print">' );
-</script>
-
-<!--[if lt IE 9]>
-<script src="lib/js/html5shiv.js"></script>
-<![endif]-->
+  <title>Title</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
 </head>
-
 <body>
-
-<div class="reveal">
-
-<!-- Any section element inside of this container is displayed as a slide -->
-<div class="slides">
-
-<section>
-<h1>Title</h1>
-<h3>Name</h3>
-<p>
-<h4>Date</h4>
-</p>
-</section>  
-
-
-<section id="my-first-slide" class="level2">
-<h2>My first slide</h2>
+<div id="header">
+<h1 class="title">Title</h1>
+<h2 class="author">Name</h2>
+<h3 class="date">Date</h3>
+</div>
+<h2 id="my-first-slide">My first slide</h2>
 <p>List</p>
 <ul>
 <li>this</li>
 <li>is</li>
 <li>cool</li>
 </ul>
-</section>
-<section id="variables" class="level2">
-<h2>Variables</h2>
+<h2 id="variables">Variables</h2>
 <p>The following variables can be defined from the command line:</p>
 <ul>
 <li>theme</li>
 <li>transition</li>
 </ul>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pandoc</span> -t html5 --template=template-revealjs.html \
-    <span class="kw">--standalone</span> --section-divs \
-  <span class="kw">--variable</span> theme=<span class="st">&quot;beige&quot;</span> \
-  <span class="kw">--variable</span> transition=<span class="st">&quot;linear&quot;</span> \
-  <span class="kw">slides.md</span> -o slides.html</code></pre>
-</section>
-</div>
-
-<script src="lib/js/head.min.js"></script>
-<script src="js/reveal.js"></script>
-
-<script>
-  // Full list of configuration options available here:
-  // https://github.com/hakimel/reveal.js#configuration
-  Reveal.initialize({
-    controls: true,
-    progress: true,
-    history: true,
-    center: false,
-
-  // available themes are in /css/theme
-      theme: Reveal.getQueryHash().theme || 'beige', 
-  
-  // default/cube/page/concave/zoom/linear/fade/none
-      transition: Reveal.getQueryHash().transition || 'linear',
-  
-  // Optional libraries used to extend on reveal.js
-  dependencies: [
-    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-  ]
-  });
-
-</script>
-
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pandoc</span> -t html5 --template=template-revealjs.html \
+    --standalone --section-divs \
+  --variable theme=<span class="st">&quot;beige&quot;</span> \
+  --variable transition=<span class="st">&quot;linear&quot;</span> \
+  slides.md -o slides.html</code></pre></div>
 </body>
 </html>

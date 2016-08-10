@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="acm2016">ACM2016</h1>
+<p>This repo contains an automated cropland mapping algorithm (ACMA) for Africa using Moderate Resolution Imaging Spectroradiometer (MODIS) NDVI Time-series dataset, implemented by Google Earth Engine (GEE) JavaScript API. In general, this exact code was used by Jun Xiong to generate 250m global cropland product (GCP250m) for continental Africa. You can also read more on ACM2016 in a paper (Xiong and Thenkabail, 2016).</p>
+<p>Google Earth Engine, based on millions of servers around the world and the start-of-the-art cloud-computing and storage capability, has archived a large catalog of earth observation data and enabled the scientific community to work on the trillions of images in parallel processing way. If you are not familar with Earth Engine, go <a href="https://earthengine.google.com/">here</a> to get much idea about how to use it.</p>
+<h1 id="how-to-use-test-and-report-bugs-of-acm2016">How to use, test and report bugs of ACM2016</h1>
+<p>The runnable code is hosted on Earth Engine and under maintenance with <a href="https://code.earthengine.google.com/ce07c366433e44f4bc76def1b9efdbf3">this link</a>. You can either run this code in following ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>Click on the <a href="https://code.earthengine.google.com/ce07c366433e44f4bc76def1b9efdbf3">ACM2016 link</a> directly and open it in the GEE code editor;</p></li>
+<li><p>Open a new GEE <a href="code.earthengine.google.com">code editor</a> in the web browser and copy all the content of <a href="gee_code_for_ACM2016.js" class="uri">gee_code_for_ACM2016.js</a> to the code area, then click the <strong>Run</strong> button to run it.</p></li>
+</ol>
+<p>You need to read the head of the code to understand how to set time and spatial extent of the mapping algorithm.</p>
+<p>To be able to run this code, a Google Earth Engine account is required. If you don’t have it, you can go to <a href="https://earthengine.google.com/signup/">sign up</a> to create one.</p>
+<p>Unless otherwise noted, the Javascript code is orginal and any errors or ommissions should be attribued to me and not the aforemention authors.</p>
+<h1 id="methodology">Methodology</h1>
+<p>ACM2016 was implemented as following steps:</p>
+<p>First, MODIS 250 NDVI imagery composite of every 16-days was stratified by: (1) Mask out the non-crop area using 250m baseline crop mask of Africa, (2). Subset into 8 consolidated FAO agroecological zones (AEZs) and (3) clustered into unique clusters within individual AEZs using K-means method. Second, ground samples from reference samples repository were split into traing part and validation part. The former was used to generate crop signature to identify unique clusters and later was used to validate the identified results, which is called baseline Cropland Layer (RCL). Third, given the accuracy of RCL is satisfactory, the way to carry out classification in individual AEZs was generalized to a replicable decisio-tree, all the trees are ensemble to a complete automated algorithm which don’t need recalibration for entire Africa.</p>
+<div class="figure">
+<img src="https://googledrive.com/host/0B4r_wY6qxAxGZ2dKVDJISXdaR0k/Figure-flowchart.png" alt="chart-flow" />
+<p class="caption">chart-flow</p>
+</div>
+<h1 id="acm2016-algorithm">ACM2016 Algorithm</h1>
+<p>Instead of relying on in situ training data, the proposed method privileges the use of established baseline reference cropland layer, since it consists in the best possible land cover information available for each Agro-ecological Zone. The construction of decistion-tree algorithm is a procedure that recursively partitions a dataset into smaller subdivisions on the basis of a set of tests defined at each branch or node in the tree. The tree is composed of a root node (formed from training data), a set of internal nodes (splits), and a set of terminal nodes (leaves). A zonal tree rules are constructed by recursively partitioning the spectral distribution of the training dataset using WEKA (Sharma et al., 2013) and then expert-timed till the derived cropland product for the year 2014 (ACP2014) accurately matches with RCL2014. In zones where land cover features were misclassified and classification output was considered unsatisfactory, we added training data, redeveloped the decision tree models, and reapplied the models.</p>
+<p>We used a decision tree approach to hierarchically classify crop types. The decision tree for each AEZ consisted of three steps: a) seperated using irrigation/rainfed masks, b) fallow cropland identification, c) decision-tree for primary classes in the individual AEZ based on . Fallow croplands were filtered out seperately for irrigation and rainfed: for irrigation area, area whose NDVI value lower than 0.2 in six months of one calendar year being excluded from the cropland area as fallow-land; for rainfed area, pixels whose NDVI falls below a threshold during the peak growing seasons of the crop will be coded as cropland fallows.</p>
+<div class="figure">
+<img src="decision-tree.png" alt="algorithm" />
+<p class="caption">algorithm</p>
+</div>
+<h1 id="dataset-used">Dataset used</h1>
+<h2 id="m-baseline-crop-mask-for-africa">250m baseline crop mask for Africa</h2>
+<p>A baseline 250m cropland mask of Africa, including irrigation and rainfed part, was combined from 10 existing state-of-art studies of African and Global cropland studies:</p>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="10%" />
+<col width="12%" />
+<col width="9%" />
+<col width="12%" />
+<col width="8%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Institution</th>
+<th align="center">Data Source</th>
+<th align="center">Resolution</th>
+<th align="center">Time interval</th>
+<th align="center">Classes</th>
+<th align="center">Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Globcover</td>
+<td align="center">ESA</td>
+<td align="center">MERIS</td>
+<td align="center">300m</td>
+<td align="center">2005, 2009</td>
+<td align="center">LULC</td>
+<td align="center">Arinoothers, 2010</td>
+</tr>
+<tr class="even">
+<td align="center">Africover</td>
+<td align="center">FAO</td>
+<td align="center">Landsat 7</td>
+<td align="center">30m</td>
+<td align="center">1995-2002</td>
+<td align="center">LULC</td>
+<td align="center">Kalensky, 2014</td>
+</tr>
+<tr class="odd">
+<td align="center">LULC 2000</td>
+<td align="center">USGS</td>
+<td align="center">AVHRR</td>
+<td align="center">2000m</td>
+<td align="center">2000</td>
+<td align="center">LULC</td>
+<td align="center">Soulard et al., 2014</td>
+</tr>
+<tr class="even">
+<td align="center">GLC 2000</td>
+<td align="center">JRC</td>
+<td align="center">SPOT</td>
+<td align="center">1/112°</td>
+<td align="center">2000</td>
+<td align="center">LULC</td>
+<td align="center">Fritz, Hartley, Bartholomé, &amp; Belward, 2000</td>
+</tr>
+<tr class="odd">
+<td align="center">MCD12Q1</td>
+<td align="center">NASA</td>
+<td align="center">MODIS</td>
+<td align="center">500m</td>
+<td align="center">2004 - now</td>
+<td align="center">LULC</td>
+<td align="center">Leroux, Jolivot, Bégué, Seen, &amp; Zoungrana, 2014</td>
+</tr>
+<tr class="even">
+<td align="center">MODIS-JRC</td>
+<td align="center">JRC/MARS</td>
+<td align="center">MODIS, Landsat</td>
+<td align="center">250m</td>
+<td align="center">2009</td>
+<td align="center">LULC</td>
+<td align="center">Vancutsem et al., 2013</td>
+</tr>
+<tr class="odd">
+<td align="center">GCEV1</td>
+<td align="center">USGS</td>
+<td align="center">MODIS, Landsat</td>
+<td align="center">1000m</td>
+<td align="center">2010</td>
+<td align="center">Cropland</td>
+<td align="center">Teluguntla, et al., 2015</td>
+</tr>
+<tr class="even">
+<td align="center">Global30</td>
+<td align="center">NGCC</td>
+<td align="center">Landsat 7</td>
+<td align="center">30m</td>
+<td align="center">2010</td>
+<td align="center">LULC</td>
+<td align="center">Chen et al., 2015</td>
+</tr>
+<tr class="odd">
+<td align="center">FROMGC</td>
+<td align="center">CESS</td>
+<td align="center">Landsat 7</td>
+<td align="center">30m</td>
+<td align="center">Circa 2010</td>
+<td align="center">LULC</td>
+<td align="center">Gong et al., 2013</td>
+</tr>
+<tr class="even">
+<td align="center">GRIPC</td>
+<td align="center">BU</td>
+<td align="center">MODIS</td>
+<td align="center">500m</td>
+<td align="center">Circa 2005</td>
+<td align="center">Cropland</td>
+<td align="center">Salmon, et al., 2015</td>
+</tr>
+</tbody>
+</table>
+<p>This mask file was hosted on Earth Engine as image assset.</p>
+<h2 id="modis-ndvi-times-series-product">MODIS NDVI times series product</h2>
+<p>The MODIS 250m 16-day composite NDVI product (MYD13, Didan, 2015) were found to have sufficient spatial and temporal resolutions to detect cropland over large area (Wardlow et al., 2005). In Section 3, NDVI time-series spanning the entire year (January–December 2014) was created for the continental Africa, because of its strength in overcoming the high probability of cloud cover andharmattan haze during the monsoon season over much of Africa (Leroux et al., 2014; Vintrou et al., 2012). Hosted on Google Earth Engine, the MYD13 product are computed from daily atmospherically corrected bi-directional surface reflectances that have been masked for water, clouds, heavy aerosols, and cloud shadows.</p>
+<h1 id="classification-system">Classification system</h1>
+<p>The ACM2016 will generate a class map consisted of following classes:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Class id</th>
+<th align="center">Label</th>
+<th align="center">Dominant Crop Classes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">Irrigated, SC, season 2*</td>
+<td align="center">wheat, barley</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">Irrigated, SC, season 1*</td>
+<td align="center">maize, rice, millet</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">Irrigated, DC,</td>
+<td align="center">rice/chili-vegetable, rice-rice</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">Irrigated, Continuous</td>
+<td align="center">sugarcane, plantation</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">Rainfed, SC, season 2</td>
+<td align="center">millet, barley, maize, beans, cassava, yam</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">Rainfed, SC, season 1</td>
+<td align="center">maize, sorghum, tef, wheat, barley, cassava, yam</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">Rainfed, DC,</td>
+<td align="center">rice-rice, maize-maize, rice-beans/potato/chickpea/pulses</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">Rainfed, Continuous</td>
+<td align="center">sugarcane, plantation</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">Fallow-lands</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>Where season 1 is from Oct through March and season 2 is May through September.</p>
+<h1 id="output">Output</h1>
+<p>We applied ACM2016 algorithm for the years 2003 through 2014 using MODIS 250 m every 16-day time-series data on Google Earth Engine.The net cropland areas (NCAs) Africa increase by about 10 Mha from 2003 to 2014, going from 250 Mha to 270 Mha and, the gross cropland areas (GCAs) Africa increase by about 10 Mha from 2003 to 2014, going from 310 Mha to 325 Mha. To summerize, the cropland fallows of Africa decrease by about 10 Mha from 2003 to 2014, going from 43 Mha to 30 Mha. From 2003 to 2014 there is 10 Mha in cropland area increase and another 10 Mha of cropland fallow decrease. Roughly an increase of 1 Mha of croplands per year. This can only increase further with rapid increase in population and increasing food and nutritional demands of the populations.</p>
+<p><img src="ACM2016-outputs.jpg" alt="annual-maps" /> Figure. ACM2016 derived cropland products of Africa year after year from year 2003 through the year 2014.</p>
+<h1 id="citation">Citation</h1>
+<p>TBD</p>
+<h1 id="contact">Contact</h1>
+<p>If you have any questions, feel free to write to <a href="mailto:jxiong@usgs.gov">jxiong@usgs.gov</a></p>
+<p>More details about our project and product can be found at: <a href="https://croplands.org/">croplands.org</a></p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li>Gong, P., Wang, J., Yu, L., Zhao, Y., Zhao, Y., Liang, L., Niu, Z., Huang, X., Fu, H., Liu, S., Li, C., Li, X., Fu, W., Liu, C., Xu, Y., Wang, X., Cheng, Q., Hu, L., Yao, W., Zhang, H., Zhu, P., Zhao, Z., Zhang, H., Zheng, Y., Ji, L., Zhang, Y., Chen, H., Yan, A., Guo, J., Yu, L., Wang, L., Liu, X., Shi, T., Zhu, M., Chen, Y., Yang, G., Tang, P., Xu, B., Giri, C., Clinton, N., Zhu, Z., Chen, J., Chen, J., 2013. Finer resolution observation and monitoring of global land cover: first mapping results with Landsat TM and ETM+ data. International Journal of Remote Sensing 34, 2607–2654. doi:10.1080/01431161.2012.748992</li>
+<li>Salmon, J.M., Friedl, M.A., Frolking, S., Wisser, D., Douglas, E.M., 2015. Global rain-fed, irrigated, and paddy croplands: A new high resolution map derived from remote sensing, crop inventories and climate data. International Journal of Applied Earth Observation and Geoinformation 38. doi:10.1016/j.jag.2015.01.014</li>
+<li>Thenkabail, P.S., Biradar, C.M., Noojipady, P., Dheeravath, V., Li, Y., Velpuri, M., Gumma, M., Gangalakunta, O.R.P., Turral, H., Cai, X., Vithanage, J., Schull, M.A., Dutta, R., 2009. Global irrigated area map (GIAM), derived from remote sensing, for the end of the last millennium. International Journal of Remote Sensing 30, 3679–3733. doi:10.1080/01431160802698919</li>
+<li>Thenkabail, P.S., Wu, Z., 2012. An Automated Cropland Classification Algorithm (ACCA) for Tajikistan by Combining Landsat, MODIS, and Secondary Data. Remote Sensing 4. doi:10.3390/rs4102890</li>
+<li>Vancutsem, C., Marinho, E., Kayitakire, F., See, L., Fritz, S., 2012. Harmonizing and Combining Existing Land Cover/Land Use Datasets for Cropland Area Monitoring at the African Continental Scale. Remote Sensing 5. doi:10.3390/rs5010019</li>
+<li>Waldner, F., Canto, G.S., Defourny, P., 2015. Automated annual cropland mapping using knowledge-based temporal features. ISPRS Journal of Photogrammetry and Remote Sensing 110. doi:10.1016/j.isprsjprs.2015.09.013</li>
+</ul>
+</body>
+</html>

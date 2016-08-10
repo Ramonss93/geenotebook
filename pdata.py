@@ -5,8 +5,26 @@ import itertools
 from IPython.display import Markdown, display
 import json, ee; ee.Initialize()
 
+def load_ft(name):
+    dic = {
+    'grid':'ft:12RIMwSvyuOJByGe1G_ylgvagH5WzFbxHIXGqCZyB',   #ce_grid1x1
+    'afr':'ft:1fM786Wbri6CqIz3JvyQ_vvMIBGbdUmTOGacZTnb-',       # africa continent
+    'az':'ft:19hZjN8dbwPbDHNdLVaoGLEtmIbxAtrn4yDr9QVgt',        # africa AEZs
+    'country':'ft:1fGODObRcgWotUauiKV_2GlM7ZXX0sdZ5FLTJeALZ',   # africa Countries
+    'tr':'ft:1C_gFvQmd3AGtB0Q0XgnKk5ESUARSH79FB9Un8sF2',    # GFSAD traing dataset
+    'val':'ft:1KK298zIL_T5yHXNaKnqQ4nfK03aKJBiiQeP__EqU',  # Bo's validatioin data
+    'modists':'ft:1DJ8J1R_Y7-UzjI7REMv2GWNeOWBSI0bmhEobgJlU',
+    'india_modists':'ft:1CAklqz-XV7_0ehxDCqBgurkZy-pocoGuUs1RsKb2',
+ }
+    return ee.FeatureCollection(dic[name])
+
+
 def load_dataset(name):
-    return pd.read_csv('https://rawgit.com/suredream/datasets/master/%s.csv' % name)    
+    try:
+        df = pd.read_csv('https://rawgit.com/suredream/datasets/master/%s.csv.gz'  % name, compression='gzip')
+    except:
+        df = pd.read_csv('https://rawgit.com/suredream/datasets/master/%s.csv' % name)
+    return df
 def display_error_matrix(truth, pred, index=['A', 'C','Total', 'Producer Accuracy'], columns=['A', 'B', 'Total', 'User Accuracy']):
     """Display error matrix, accuracy and kappa
 df = pd.read_csv('https://rawgit.com/suredream/datasets/master/val_ce.csv') 
@@ -67,13 +85,3 @@ def h5import(filename, csvfile, desc):
     h5store(filename, df, desc)
     
 
-def load_ft(name):
-# - grids = ee.FeatureCollection('ft:12RIMwSvyuOJByGe1G_ylgvagH5WzFbxHIXGqCZyB')  // ce_grid1x1
-# - continent = ee.FeatureCollection('ft:1fM786Wbri6CqIz3JvyQ_vvMIBGbdUmTOGacZTnb-') // africa continent
-# - aezs8 = ee.FeatureCollection('ft:19hZjN8dbwPbDHNdLVaoGLEtmIbxAtrn4yDr9QVgt') // africa AEZs
-# - countries = ee.FeatureCollection('ft:1fGODObRcgWotUauiKV_2GlM7ZXX0sdZ5FLTJeALZ') // africa Countries
-# - training = ee.FeatureCollection('ft:1C_gFvQmd3AGtB0Q0XgnKk5ESUARSH79FB9Un8sF2') // GFSAD traing dataset
-# - reference = ee.FeatureCollection('ft:1KK298zIL_T5yHXNaKnqQ4nfK03aKJBiiQeP__EqU') // Bo's validatioin data
-    dic = {'grid':'ft:12RIMwSvyuOJByGe1G_ylgvagH5WzFbxHIXGqCZyB', 'afr':'ft:1fM786Wbri6CqIz3JvyQ_vvMIBGbdUmTOGacZTnb-','az':'ft:19hZjN8dbwPbDHNdLVaoGLEtmIbxAtrn4yDr9QVgt',
- 'country':'ft:1fGODObRcgWotUauiKV_2GlM7ZXX0sdZ5FLTJeALZ','tr':'ft:1C_gFvQmd3AGtB0Q0XgnKk5ESUARSH79FB9Un8sF2','val':'ft:1KK298zIL_T5yHXNaKnqQ4nfK03aKJBiiQeP__EqU', 'modists':'ft:1DJ8J1R_Y7-UzjI7REMv2GWNeOWBSI0bmhEobgJlU'}
-    return ee.FeatureCollection(dic[name])

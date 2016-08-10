@@ -50,8 +50,15 @@
 </section>  
 
 
-<section id="target" class="level2">
-<h2>Target</h2>
+<style>
+.reveal h1 { font-size: 2.5em; } 
+.reveal h3 { text-align: left; }
+.reveal h4 { text-align: left; }
+.reveal p { text-align: left; }
+.reveal ul { text-align: left; }
+</style>
+<section id="target" class="level3">
+<h3>Target</h3>
 <p>List</p>
 <ul>
 <li>this</li>
@@ -59,18 +66,21 @@
 <li>cool</li>
 </ul>
 </section>
-<section id="variables" class="level2">
-<h2>Variables</h2>
+<section id="variables" class="level3">
+<h3>Variables</h3>
 <p>The following variables can be defined from the command line:</p>
 <ul>
 <li>theme</li>
 <li>transition</li>
 </ul>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pandoc</span> -t html5 --template=template-revealjs.html \
-    <span class="kw">--standalone</span> --section-divs \
-  <span class="kw">--variable</span> theme=<span class="st">&quot;beige&quot;</span> \
-  <span class="kw">--variable</span> transition=<span class="st">&quot;linear&quot;</span> \
-  <span class="kw">slides.md</span> -o slides.html</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pandoc</span> -t html5 --template=template-revealjs.html \
+    --standalone --section-divs \
+  --variable theme=<span class="st">&quot;beige&quot;</span> \
+  --variable transition=<span class="st">&quot;linear&quot;</span> \
+  slides.md -o slides.html</code></pre></div>
+</section>
+<section id="others" class="level3">
+<h3>Others</h3>
 <ul>
 <li>generate dataset</li>
 <li>plotting</li>

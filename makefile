@@ -29,10 +29,12 @@ install:
 	conda install -y -c scitools cartopy
 	conda install -y pandoc
 	conda install -y graphviz
-md:
-	pandoc -s -S --bibliography misc/jxiong.bib --filter pandoc-citeproc --csl misc/apa.csl -o output/paper.html CropExtentInEE.md
+cycle:
+	pandoc -s -S --bibliography misc/jxiong.bib --filter pandoc-citeproc --csl misc/apa.csl markdown/$@.md -o markdown/$@.html
 flow:
 	# black (default) - white - league - sky - beige - simple - serif - blood - night - moon - solarized
 	pandoc -t html5 --template=markdown/template-revealjs.html --standalone --section-divs --variable theme="solarized" --variable transition="linear" markdown/$@.md -o markdown/$@.html
 classee:
+	pandoc -t html5 --template=markdown/template-revealjs.html --standalone --section-divs --variable theme="solarized" --variable transition="linear" markdown/$@.md -o markdown/$@.html
+tk_deep:
 	pandoc -t html5 --template=markdown/template-revealjs.html --standalone --section-divs --variable theme="solarized" --variable transition="linear" markdown/$@.md -o markdown/$@.html
