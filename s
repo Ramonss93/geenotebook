@@ -12,7 +12,7 @@ if len(sys.argv) > 1:
 		if os.path.exists(mkfilename):
 			fline=open(mkfilename).readline().rstrip()
 			if fline.find('%') != -1:
-				cmd = 'pandoc -t html5 --template=markdown/template-revealjs.html --standalone --section-divs --variable theme="solarized" --variable transition="linear" markdown/%s.md -o markdown/%s.html'
+				cmd = 'pandoc -t html5 --template=markdown/revealjs.tmpl --standalone --section-divs --variable theme="solarized" --variable transition="linear" markdown/%s.md -o markdown/%s.html'
 			elif fline.find('paper') != -1:
 				cmd = 'pandoc -s -S --bibliography misc/jxiong.bib --filter pandoc-citeproc --csl misc/apa.csl markdown/%s.md -o markdown/%s.html'
 			else:
