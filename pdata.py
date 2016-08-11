@@ -3,6 +3,8 @@ from IPython.display import HTML, Markdown, display
 from pylab import *
 import numpy as np, pandas as pd, seaborn as sns
 import json, itertools, ee; ee.Initialize()
+from io import StringIO; output = StringIO()
+import rpy2.robjects as robjects
 
 fc_download = lambda fc: display(HTML('<a href="%s" target="_blank">download</a>' % fc.select([".*"], None, False).getDownloadURL('csv')))
 
@@ -35,7 +37,7 @@ def features(name, end=-1):
     df, desc = dataset(name)
     if end != -1:
         df = df[:end]
-    features = [ee.Feature(ee.Geometry.Point([r['longitude'], r['latitude']]), {"system:index": "%d" % r['idx'], "class": r['class'], 'lon':r['longitude'], 'lat':r['latitude']}) for idx, r in df.iterrows()]    
+    features = [ee.Feature(ee.Geometry.Point([r['longitude'], r['latitude']]), {"system:index": "%d" % r['idx'], "class": r['class'], 'longitude':r['longitude'], 'latitude':r['latitude']}) for idx, r in df.iterrows()]    
     return ee.FeatureCollection(features)
 
 def display_error_matrix(truth, pred, index=['A', 'C','Total', 'Producer Accuracy'], columns=['A', 'B', 'Total', 'User Accuracy']):
@@ -46,7 +48,7 @@ display_error_matrix(df['truth'], df['map'])
     from sklearn.metrics import confusion_matrix, cohen_kappa_score
 
     C = confusion_matrix(truth, pred)
-    kappa = (cohen_kappa_score(df['truth'], df['map']) * 1000).astype(int)
+    kappa = (cohen_kappa_score(truth, pred) * 1000).astype(int)
     correct = [C[i,i] for i in range(C.shape[0])]
     colsum = np.sum(C, axis=1)
     C = np.c_[C, colsum, (correct / colsum * 1000).astype(int)] # UA

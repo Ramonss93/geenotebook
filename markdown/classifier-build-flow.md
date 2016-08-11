@@ -15,3 +15,6 @@ gee mapping
 compared with mirca2000
 inspection
 documentation
+
+### issues
+distribution of the final evaluation data and the development set
