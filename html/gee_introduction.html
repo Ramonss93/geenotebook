@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introdunction of Google Earth Engine</title>
+
+<meta name="description" content="Introdunction of Google Earth Engine">    
+
+  <meta name="author" content="Jun Xiong" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + 
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introdunction of Google Earth Engine</h1>
+<br><br><br>
+<h3>Jun Xiong</h3>
+<p>
+<h4>Aug 2015</h4>
+</p>
+</section>  
+
+
+<style>
+.reveal h1 { font-size: 2.5em; }
+.reveal p { text-align: left; font-size: 0.8em; }
+.reveal li { font-size: 1em; }
+
+</style>
+<section id="introduction" class="level3">
+<h3>Introduction</h3>
+<p>Google Earth Engine (GEE) is a platform designed to enable petabyte-scale, scientific analysis and visualization of satellite imagery and geospatial datasets, and makes it available for scientists, researchers, and developers to detect changes, map trends, and quantify differences on the Earth's surface.</p>
+<ul>
+<li>Easy to get started</li>
+<li>Support for LATEXLATEX formatted labels and texts</li>
+<li>Great control of every element in a figure, including figure size and DPI.</li>
+<li>High-quality output in many formats, including PNG, PDF, SVG, EPS, and PGF.</li>
+<li>GUI for interactively exploring figures and support for headless generation of figure - files (useful for batch jobs).</li>
+</ul>
+<p>How to get access<a href="https://earthengine.google.com/signup" class="uri">https://earthengine.google.com/signup</a></p>
+<p>More information <a href="https://earthengine.google.com/" class="uri">https://earthengine.google.com/</a></p>
+</section>
+<section id="get-started-with-earth-engine" class="level3">
+<h3>Get Started with Earth Engine</h3>
+<p>The Google Earth Engine API provides a library of functions which may be applied to imagery for display and analysis.</p>
+</section>
+<section id="gee-code-editor" class="level3">
+<h3>GEE Code Editor</h3>
+<p>The Code Editor <a href="https://code.earthengine.google.com/">code.earthengine.google.com</a>is an interactive environment for developing Earth Engine applications. <img src="https://developers.google.com/earth-engine/images/Playground_diagram_v3_crop.png" /></p>
+</section>
+<section id="gee-code-editor-geometry-tools" class="level3">
+<h3>GEE Code Editor: Geometry tools</h3>
+<figure>
+<img src="https://developers.google.com/earth-engine/images/Playground_geometries_cropped.png" />
+</figure>
+</section>
+<section id="example-display-one-scence-of-landsast-8-image" class="level3">
+<h3>Example: Display one scence of Landsast 8 Image</h3>
+<p><a href="https://code.earthengine.google.com/ae16d1bdd087707dee3be49a00c1d7eb">Open in Code Editor</a></p>
+<pre><code>// Load the image from the archive.
+var image = ee.Image(&#39;LANDSAT/LC8_L1T/LC80440342014077LGN00&#39;);
+
+// Define visualization parameters in an object literal.
+var vizParams = {bands: [&#39;B5&#39;, &#39;B4&#39;, &#39;B3&#39;], min: 5000, max: 15000, gamma: 1.3};
+
+// Center the map on the image and display.
+Map.centerObject(image, 9);
+Map.addLayer(image, vizParams, &#39;Landsat 8 false color&#39;);</code></pre>
+</section>
+<section id="data-structures" class="level3">
+<h3>Data Structures</h3>
+<ul>
+<li>Geo DataType
+<ul>
+<li>Image, ImageCollection</li>
+<li>Feature, FeatureCollection</li>
+</ul></li>
+<li>Primative DataType
+<ul>
+<li>Dictionary</li>
+<li>List</li>
+<li>Array</li>
+<li>Geometry</li>
+<li>Date</li>
+<li>Number</li>
+<li>String</li>
+</ul></li>
+</ul>
+</section>
+<section id="geo-data-image" class="level3">
+<h3>Geo Data: Image</h3>
+<pre><code>// Load an image.
+var image = ee.Image(&#39;LANDSAT/LC8_L1T/LC80440342014077LGN00&#39;);
+
+// Get information about the bands as a list.
+var bandNames = image.bandNames();
+print(&#39;Band names: &#39;, bandNames); // ee.List of band names
+
+// Get projection information from band 1.
+var b1proj = image.select(&#39;B1&#39;).projection();
+print(&#39;Band 1 projection: &#39;, b1proj); // ee.Projection object
+
+// Get scale (in meters) information from band 1.
+var b1scale = image.select(&#39;B1&#39;).projection().nominalScale();
+print(&#39;Band 1 scale: &#39;, b1scale); // ee.Number
+
+// Note that different bands can have different projections and scale.
+var b8scale = image.select(&#39;B8&#39;).projection().nominalScale();
+print(&#39;Band 8 scale: &#39;, b8scale); // ee.Number
+
+// Get a list of all metadata properties.
+var properties = image.propertyNames();
+print(&#39;Metadata properties: &#39;, properties); // ee.List of metadata properties
+
+// Get a specific metadata property.
+var cloudiness = image.get(&#39;CLOUD_COVER&#39;);
+print(&#39;CLOUD_COVER: &#39;, cloudiness); // ee.Number
+
+// Get the timestamp and convert it to a date.
+var date = ee.Date(image.get(&#39;system:time_start&#39;));
+print(&#39;Timestamp: &#39;, date); // ee.Date</code></pre>
+<p><a href="https://code.earthengine.google.com/ae16d1bdd087707dee3be49a00c1d7eb">Open in Code Editor</a></p>
+<p>### Geo Data: Operate ee.Image ``` // Load a Landsat 8 image. var image = ee.Image('LANDSAT/LC8_L1T_TOA/LC80440342014077LGN00');</p>
+<p>// Compute the EVI using an expression. var evi = image.expression( '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', { 'NIR': image.select('B5'), 'RED': image.select('B4'), 'BLUE': image.select('B2') });</p>
+<p>Map.centerObject(image, 9); Map.addLayer(evi, {min: -1, max: 1, palette: ['FF0000', '00FF00']}); ``` <a href="https://code.earthengine.google.com/be79ed90f9324a3c01d3ee65ea6a0677">Open in Code Editor</a></p>
+</section>
+<section id="geo-data-imagecollection" class="level3">
+<h3>Geo Data: ImageCollection</h3>
+<p>An <strong>ImageCollection</strong> is a stack or time series of images.</p>
+</section>
+<section id="data-structures-featurecollection" class="level3">
+<h3>Data Structures: FeatureCollection</h3>
+</section>
+<section id="algorithms" class="level2">
+<h2>Algorithms</h2>
+</section>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,  
+
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'solarized', 
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'linear',
+  
+  transition: 'none',
+  slideNumber: true,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+
+</script>
+
+</body>
+</html>

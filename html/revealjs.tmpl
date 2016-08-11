@@ -59,6 +59,7 @@ $endfor$
 
 <section>
 <h1>$title$</h1>
+<br><br><br>
 $for(author)$<h3>$author$</h3>$endfor$
 <p>
 <h4>$date$</h4>
@@ -87,7 +88,7 @@ $body$
     controls: true,
     progress: true,
     history: true,
-    center: false,
+    center: false,  
 
   // available themes are in /css/theme
   $if(theme)$
@@ -102,6 +103,9 @@ $body$
   $else$
     transition: Reveal.getQueryHash().transition || 'default',
   $endif$
+
+  transition: 'none',
+  slideNumber: true,
 
   // Optional libraries used to extend on reveal.js
   dependencies: [

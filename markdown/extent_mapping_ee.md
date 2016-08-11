@@ -5,6 +5,7 @@ Continental crop extent mapping at 30 m resolution: Google Earth Engine Approach
 -	Global Crop/Non-Crop Training/Validation Dataset
 -	Mapping in Segmentation Level
 -	Google Earth Engine
+
 # Abstract
 Crop extent map is fundamental data base for high level products of global cropland maps. We did it on Africa.
 Africa fragmental fields need higher resolution images.

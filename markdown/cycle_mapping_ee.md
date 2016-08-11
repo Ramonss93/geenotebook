@@ -7,63 +7,18 @@ at smaller scales of analysis.
 
 -->
 
-Cropping intensity, the number of crops planted annually, can be used as ameasure of food security for smallholder farmers given that
-it can greatly affect net production. Current techniques for quantifying cropping intensitymay not accurately map
-smallholder farms where the size of one field is typically smaller than the spatial resolution of readily available
-satellite data. 
+Cropping intensity, the number of crops planted annually, can be used as a measure of food security for smallholder farmers given that it can greatly affect net production. Current techniques for quantifying cropping intensitymay not accurately map smallholder farms where the size of one field is typically smaller than the spatial resolution of readily available satellite data.
 
 # Introduction
 
-Over the last several decades, many remote sensing approaches
-have been developed to identify cropping practices, such as crop
-type and cropping intensity (i.e. whether a farm is single, double, or
-triple cropped in a given year), across large spatial and temporal
-scales (e.g. Biradar & Xiao, 2011; Collins, 1978; Quarmby et al.,
-1992; Xiao et al., 2005). However, current techniques may not be
-appropriate for mapping cropping practices of smallholder farms
-where a field is typically smaller than the spatial resolution of readily
-available satellite data such asMODIS (250 mresolution) and sometimes
-Landsat (30 m resolution). Identifying appropriate techniques to map
-smallholder farms is important, however, given that over 50% of rural
-populations in developing nations are smallholder farmers who are particularly
-vulnerable to global and environmental change (Morton, 2007).
+Over the last several decades, many remote sensing approaches have been developed to identify cropping practices, such as crop type and cropping intensity (i.e. whether a farm is single, double, or triple cropped in a given year), across large spatial and temporal scales (e.g. Biradar & Xiao, 2011; Collins, 1978; Quarmby et al., 1992; Xiao et al., 2005). However, current techniques may not be appropriate for mapping cropping practices of smallholder farms where a field is typically smaller than the spatial resolution of readily available satellite data such asMODIS (250 mresolution) and sometimes Landsat (30 m resolution). Identifying appropriate techniques to map smallholder farms is important, however, given that over 50% of rural populations in developing nations are smallholder farmers who are particularly vulnerable to global and environmental change (Morton, 2007).
 
 <!-- [@biradar2011quantifying] MODIS crop intensity india, 2005-->
 
 
-Previous methods have relied on high temporal-resolution datasets
-like MODIS to assess crop type and cropping intensity based on crop
-phenologies (e.g. Galford et al., 2008; Sakamoto et al., 2005; Wardlow
-et al., 2007). Vegetation index phenologies from MODIS have been
-used to detect crop type based on a crop's unique temporal signature
-(Macedo et al., 2012; Morton et al., 2006); this technique is especially
-powerful given that it is typically difficult to distinguish crops based
-purely on spectral signatures (Maxwell et al., 2004). For example,
-Sakamoto et al. (2009) found that rice can be accurately distinguished
-fromothermonsoon crops in South Asia based on the unique phenological
-signature of field flooding and rice transplanting early in the growing
-season. Phenologies have also been used to quantify the cropping
-intensity of an agricultural pixel by counting the number of peaks in a
-pixel's vegetation index time series (e.g. Biradar & Xiao, 2011). While
-these studies offer the potential for MODIS to assess crop type and
-cropping intensity, the authors of these studies acknowledge that the
-reported high accuracy of these methods is due to the large size of the
-farms that were monitored; typically, individual farm plots in these
-studies spanned ten to fifteen MODIS pixels. It is unclear whether high
-accuracieswill hold true for smallholder fields that are typically smaller
-than the size of one MODIS pixel and have highly heterogeneous
-cropping practices that may result in sub-pixel heterogeneity.
+Previous methods have relied on high temporal-resolution datasets like MODIS to assess crop type and cropping intensity based on crop phenologies (e.g. Galford et al., 2008; Sakamoto et al., 2005; Wardlow et al., 2007). Vegetation index phenologies from MODIS have been used to detect crop type based on a crop's unique temporal signature (Macedo et al., 2012; Morton et al., 2006); this technique is especially powerful given that it is typically difficult to distinguish crops based purely on spectral signatures (Maxwell et al., 2004). For example, Sakamoto et al. (2009) found that rice can be accurately distinguished fromothermonsoon crops in South Asia based on the unique phenological signature of field flooding and rice transplanting early in the growing season. Phenologies have also been used to quantify the cropping intensity of an agricultural pixel by counting the number of peaks in a pixel's vegetation index time series (e.g. Biradar & Xiao, 2011). While these studies offer the potential for MODIS to assess crop type and cropping intensity, the authors of these studies acknowledge that the reported high accuracy of these methods is due to the large size of the farms that were monitored; typically, individual farm plots in these studies spanned ten to fifteen MODIS pixels. It is unclear whether high accuracieswill hold true for smallholder fields that are typically smaller than the size of one MODIS pixel and have highly heterogeneous cropping practices that may result in sub-pixel heterogeneity. The goal of this study is to develop techniques to map cropping intensity at 30m, which can be applied globally. be powerful of smallholder farms in Africa and Asia, and assess the benefits and problems with the products.
 
-The goal of this study is to develop techniques to map cropping intensity at 30m, which can be applied globally.
-be powerful of smallholder farms in Africa and Asia, and assess the benefits and problems with the products.
-
-We chose India to assess the feasibility of
-mapping cropping intensity because over 50% of the population is smallholder
-farmers, a majority of the land use is agriculture, and previous
-studies have shown that food production in this region is particularly
-variable with climate, making it one of the most important areas to
-map accurately. 
-
+We chose India to assess the feasibility of mapping cropping intensity because over 50% of the population is smallholder farmers, a majority of the land use is agriculture, and previous studies have shown that food production in this region is particularly variable with climate, making it one of the most important areas to map accurately.
 [@jain2013mapping] 
 
 #### Fig. 1. Diagram outlining the different steps in each of the four methods used in our study. 
