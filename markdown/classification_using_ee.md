@@ -12,3 +12,7 @@ Ensemble classifiers in remote sensing
 
 Ensemble classifiers
 --------------------------------------------------
+
+most significant human impacts on the land system can
+be captured at this scale, a number of researchers are focusing on such products. This paper reports
+the operational approach used in such a project, which aims to deliver reliableequence and then results are merged together. For the identification of each class, a robust integration of pixel-and object-based classification was developed. To improve the quality of the classification results, a knowledge-based interactive verification procedure was developed with the support of web service technology. The performance of the POK-based approach was tested using

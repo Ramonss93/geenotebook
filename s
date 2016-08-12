@@ -16,6 +16,6 @@ if len(sys.argv) > 1:
 			elif fline.find('paper') != -1:
 				cmd = 'pandoc -s -S --bibliography misc/jxiong.bib --filter pandoc-citeproc --csl misc/apa.csl markdown/%s.md -o html/%s.html'
 			else:
-				cmd = 'pandoc -s -S --bibliography misc/jxiong.bib --filter pandoc-citeproc --csl misc/apa.csl markdown/%s.md -o html/%s.html'
+				cmd = 'pandoc --toc -s -S --bibliography misc/jxiong.bib --filter pandoc-citeproc --csl misc/apa.csl markdown/%s.md -o html/%s.html'
 			os.system(cmd % (filename, filename))
 			print('%s.html created.' % filename)
